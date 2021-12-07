@@ -20,13 +20,13 @@ namespace AutenticacaoAPI.Repositories
         {
             try
             {
-                var user = _users.Values.Where(u => u.Username == username && u.Password == password).FirstOrDefault();
+                var user = _users.Values.Where(u => u.Username == username && u.Password == password).SingleOrDefault();
 
                 if (user != null)
                 {
                     if (user.IsLockout)
                     {
-                        if (DateTime.Now <= user.LockoutDate.AddMinutes(15))
+                        if (DateTime.Now <= user.LockoutDate?.AddMinutes(15))
                         {
                             return LoginResult.ErrorResult(InvalidPasswordException.ACCOUNT_LOCKED);
                         }

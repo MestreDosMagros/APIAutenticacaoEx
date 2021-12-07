@@ -29,7 +29,7 @@ namespace AutenticacaoAPI.Services
                 return new LoginResultDTO
                 {
                     Success = false,
-                    Errors = new string[] { $"Ocorreu um erro ao autenticar: {loginResult.Exception.Message}" }
+                    Errors = new string[] { $"Ocorreu um erro ao autenticar: {loginResult.Exception?.Message}" }
                 };
             }
 

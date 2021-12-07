@@ -5,16 +5,17 @@ namespace AutenticacaoAPI
 {
     public class LoginResult
     {
-        public User User { get; set; }
+        public User? User { get; set; }
         public bool Error { get; set; }
-        public AuthenticationException Exception { get; set; }
+        public AuthenticationException? Exception { get; set; }
 
         public static LoginResult SuccessResult(User user)
         {
             return new LoginResult
             {
                 User = user,
-                Error = false
+                Error = false,
+                Exception = null
             };
         }
 
