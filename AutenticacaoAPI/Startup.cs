@@ -53,6 +53,30 @@ namespace AutenticacaoAPI
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AutenticacaoAPI", Version = "v1" });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Description = @"JWT Authorization header using the Bearer scheme"
+                });
+                c.AddSecurityRequirement(
+                    new OpenApiSecurityRequirement
+                    {
+                        {
+                              new OpenApiSecurityScheme
+                              {
+                                  Reference = new OpenApiReference
+                                  {
+                                      Id = "Bearer",
+                                      Type = ReferenceType.SecurityScheme
+                                  }
+                              },
+                             new string[] {}
+                        }
+                    });
             });
         }
 
@@ -65,7 +89,7 @@ namespace AutenticacaoAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AutenticacaoAPI v1"));
             }
-               
+
             app.UseAuthentication();
 
             app.UseHttpsRedirection();
